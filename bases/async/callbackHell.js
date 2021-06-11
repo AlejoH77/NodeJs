@@ -20,17 +20,35 @@ function adios(nombre, otroCallback){
 }
 
 // ----
+function conversacion(nombre, veces, callback) {
+    if (veces > 0){
+        hablar(function() {
+            conversacion(nombre, --veces, callback);
+        })
+    }
+    else{
+        callback(nombre, callback);
+    }
+}
 
 console.log('Iniciando proceso...')
-hola('Alejandro', function (nombre) {
-    hablar(function() {
-        hablar(function() {
-            hablar(function() {
-                adios(nombre, function(){
-                    console.log('Finalizando proceso...')
-                });
-            });
-        });
+
+// hola('Alejandro', function (nombre) {
+//     hablar(function() {
+//         hablar(function() {
+//             hablar(function() {
+//                 adios(nombre, function(){
+//                     console.log('Finalizando proceso...')
+//                 });
+//             });
+//         });
+//     });
+// });
+
+//REFACTORIZADO
+hola('Alejandro', function(nombre) {
+    conversacion(nombre, 3, function(){
+        console.log('Proceso terminado');
     });
 });
 
